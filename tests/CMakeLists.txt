@@ -23,9 +23,12 @@ endif(NOT InOpenJK)
 
 set(TestFiles
 	"main.cpp"
+	"math/floating_point.cpp"
 	"safe/string.cpp"
 	"safe/limited_vector.cpp"
 	"${SharedDir}/qcommon/safe/string.cpp"
+	"${SharedDir}/qcommon/q_math.c"
+	"${SharedDir}/sys/snapvector.cpp"
 	)
 if(MSVC)
 	set(TestFiles
@@ -35,7 +38,10 @@ if(MSVC)
 endif()
 source_group( "tests" REGULAR_EXPRESSION ".*")
 source_group( "tests\\safe" REGULAR_EXPRESSION "safe/.*" )
+source_group( "tests\\math" REGULAR_EXPRESSION "math/.*" )
 source_group( "qcommon\\safe" REGULAR_EXPRESSION "${SharedDir}/qcommon/safe/.*" )
+source_group( "qcommon\\safe" REGULAR_EXPRESSION "${SharedDir}/qcommon/.*" )
+source_group( "sys" REGULAR_EXPRESSION "${SharedDir}/sys/.*" )
 
 if(MSVC)
 	set( Boost_USE_STATIC_LIBS ON )
