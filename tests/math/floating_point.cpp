@@ -6,7 +6,9 @@
 
 #ifdef _WIN32
 #include "windows.h"
-auto handle = LoadLibraryEx("jampgamex86_1.0.1.0.dll", NULL, NULL);
+HMODULE handle = LoadLibraryEx("jampgamex86_1.0.1.0.dll", NULL, NULL);
+#else
+int handle = 0;
 #endif
 
 BOOST_AUTO_TEST_SUITE(math)
