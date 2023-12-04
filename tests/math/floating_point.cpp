@@ -100,6 +100,49 @@ BOOST_AUTO_TEST_CASE(vector_normalize)
 	}
 }
 
+BOOST_AUTO_TEST_CASE(angle_vectors)
+{
+	vec3_t angles = { 86.13211f, 35.6f, 20.0f };
+	vec3_t ojk_dir_forward;
+	vec3_t ojk_dir_right;
+	vec3_t ojk_dir_up;
+	if (handle)
+	{
+		typedef void func(vec3_t, vec3_t, vec3_t, vec3_t);
+		func* jamp_AngleVectors = (func*)0x200bf3c0;
+		
+		vec3_t jamp_dir_forward;
+		vec3_t jamp_dir_right;
+		vec3_t jamp_dir_up;
+
+		AngleVectors(angles, ojk_dir_forward, ojk_dir_right, ojk_dir_up);
+		jamp_AngleVectors(angles, jamp_dir_forward, jamp_dir_right, jamp_dir_up);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[0], jamp_dir_forward[0]);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[1], jamp_dir_forward[1]);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[2], jamp_dir_forward[2]);
+		BOOST_CHECK_EQUAL(ojk_dir_right[0], jamp_dir_right[0]);
+		BOOST_CHECK_EQUAL(ojk_dir_right[1], jamp_dir_right[1]);
+		BOOST_CHECK_EQUAL(ojk_dir_right[2], jamp_dir_right[2]);
+		BOOST_CHECK_EQUAL(ojk_dir_up[0], jamp_dir_up[0]);
+		BOOST_CHECK_EQUAL(ojk_dir_up[1], jamp_dir_up[1]);
+		BOOST_CHECK_EQUAL(ojk_dir_up[2], jamp_dir_up[2]);
+	}
+	else
+	{
+		AngleVectors(angles, ojk_dir_forward, ojk_dir_right, ojk_dir_up);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[0], 0.0548486896f);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[1], 0.0392678007f);
+		BOOST_CHECK_EQUAL(ojk_dir_forward[2], -0.997722208f);
+		BOOST_CHECK_EQUAL(ojk_dir_right[0], 0.269553244f);
+		BOOST_CHECK_EQUAL(ojk_dir_right[1], -0.96270901f);
+		BOOST_CHECK_EQUAL(ojk_dir_right[2], -0.0230713785f);
+		BOOST_CHECK_EQUAL(ojk_dir_up[0], 0.961422145f);
+		BOOST_CHECK_EQUAL(ojk_dir_up[1], 0.26767382f);
+		BOOST_CHECK_EQUAL(ojk_dir_up[2], 0.0633880943f);
+	}
+
+}
+
 BOOST_AUTO_TEST_SUITE_END() // SameAsBase
 
 BOOST_AUTO_TEST_SUITE_END() // math
