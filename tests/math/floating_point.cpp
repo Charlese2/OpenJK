@@ -59,9 +59,16 @@ BOOST_AUTO_TEST_CASE(vector_length)
 	
 	if (handle)
 	{
-		typedef float func(vec3_t);
-		func* jamp_VectorLength = (func*)0x20044f40;
-		BOOST_CHECK_EQUAL(VectorLength(vec), jamp_VectorLength(vec));
+		float result = 0.0f;
+		auto jamp_VectorLength = 0x20044f40;
+#if WIN32 && !WIN64
+		__asm {
+			lea eax, vec;
+			call jamp_VectorLength;
+			fstp result;
+		}
+#endif
+		BOOST_CHECK_EQUAL(VectorLength(vec), result);
 	}
 	else
 	{
